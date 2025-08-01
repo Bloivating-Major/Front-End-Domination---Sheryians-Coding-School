@@ -1,0 +1,34 @@
+So jab bhi ap ek folder banate ho to git to kuch nahi pata apke folder ke bare me.
+Issliye ap wha pe git ko initialize karte ho.
+
+Ab git ko permissions mili hai to git apke folder ko pehchanta hai.
+Ab jab git hamare folder pr kaam kar sakta hai to git 
+            untracked
+            tracked
+            modified
+            staged
+            saved checkpoint 
+create kar sakta hai. 
+
+Git can perfrom some interesting tasks like
+
+➡️ checking which file is in which state -> git status -s
+➡️ checking how many saved checkpoint are available -> git log --oneline --graph
+➡️
+
+Git status sirf unka status bataega jo files commited nahi hai aur jo commit hone ke baad change ki gayi hai.
+Git status batata hai files ke changes ke bare me aur uske status ke barre me. before commit or after commit.
+
+
+We can create a branch using git branch (name of the branch to be created)
+Also we can check how many branches are available -> git branch 
+To change the branch we can use -> git switch (name of the branch)
+Now i am in components/react/Sambhav branch.
+
+How to delete a branch is by using -> git branch -d (name of the branch to be deleted)
+
+We can create and switch a branch at same time using -> git switch -C (name of the branch)
+
+We can stash a branch using -> git stash  
+So to see those changes again we can use -> git stash apply
+We can use -> git stash clear (to remove all the saved changes.)

@@ -1,142 +1,195 @@
-- Number Data Type
+# 🔢 JavaScript Data Types – Day 2 Deep Dive
 
--- Decimal and Floating Point are same in JS
+Welcome to your journey into JavaScript data types!  
+Explore numbers, strings, booleans, symbols, objects, and more with creative examples and practical code snippets.
 
-- But if you write a floating point number in js then it can be converted to decimal also.
+---
 
-- Number("10.5") => 10.5 - this will cast the string to floating point number
-- parseInt("10.5") => 10 - this will cast the string to integer
-- parseFloat("10.5") => 10.5 - this will cast the string to floating point number
-- Number("10") => 10 - this will cast the string to integer
-- Math.floor(10.5) => 10 - this will convert the floating point number to integer by removing the decimal part
-- Math.ceil(10.5) => 11 - this will convert the floating point number to integer by rounding off the decimal part
-- Math.round(10.5) => 11 - this will convert the floating point number to integer by rounding off the decimal part
+## 1️⃣ Number Data Type
 
-```javascript
+- **Decimal and Floating Point:**  
+  Both are treated the same in JS.
+- **Type Casting Examples:**
+  ```js
+  Number("10.5")      // 10.5 (string to float)
+  parseInt("10.5")    // 10   (string to integer)
+  parseFloat("10.5")  // 10.5 (string to float)
+  Number("10")        // 10   (string to integer)
+  Math.floor(10.5)    // 10   (round down)
+  Math.ceil(10.5)     // 11   (round up)
+  Math.round(10.5)    // 11   (nearest integer)
+  ```
 
-// Example
-let num = 23.5;
-let num2 = 1.1;
+- **Code Example:**
+  ```js
+  let num = 23.5;
+  let num2 = 1.1;
+  let str = "55.55";
 
-console.log("Normal Console " , num); //23.2
+  console.log("Normal Console:", num); // 23.5
+  console.log("Number:", Number(num)); // 23.5
+  console.log("parseInt:", parseInt(num)); // 23
+  console.log("String to Number:", Number(str)); // 55.55
+  console.log("String to parseInt:", parseInt(str)); // 55
+  console.log("Math.floor:", Math.floor(num)); // 23
+  console.log("Math.ceil:", Math.ceil(num2)); // 2
+  console.log("Math.round:", Math.round(num)); // 24
+  ```
 
-console.log("Number " , Number(num));
-console.log("parseInt " , parseInt(num));
+- **Max Range:**
+  ```js
+  Number.MAX_SAFE_INTEGER      // 9007199254740991
+  Number.MIN_SAFE_INTEGER      // -9007199254740991
+  ```
 
-let str = "55.55";
+- **BigInt Data Type:**
+  ```js
+  let bigNum = BigInt(1234567890123456789012345678901234567890);
+  // Cannot mix BigInt and Number
+  let a = 1;
+  let b = 2n;
+  // console.log(a + b); // Error!
+  ```
 
-console.log("String to Number " , Number(str));
-console.log("String to parseInt " , parseInt(str));
+---
 
-console.log(Math.floor(num));
-console.log(Math.ceil(num2));
-console.log(Math.round(num))
-```
+## 2️⃣ String Data Type
 
--- Max Range in Number Data Type
-- Number.MAX_SAFE_INTEGER => 9007199254740991
-- Number.MIN_SAFE_INTEGER => -9007199254740991
+- **Usage:** Single, double quotes, or backticks (template literals).
+- **Template Literals Example:**
+  ```js
+  let name = "Sambhav";
+  let age = 20;
+  let intro = `My name is ${name} and I am ${age} years old.`;
+  console.log(intro);
+  ```
 
-- To overcome this limitation we have BIGINT Data Type
--- Creation of BigInt Data Type
-let num = BigInt(1234567890123456789012345678901234567890);
+---
 
-also you cannot add bigint and number data types
-let a = 1;
-let b = 2n;
-console.log(a+b); // this will give error
+## 3️⃣ Boolean Data Type
 
-- String Data Type
-- Used with single as well as double quotes
-- Here we also have template literals using backticks ``
-- Template literals allow us to embed expressions inside string using ${expression}
+- **Values:** `true` and `false`
+  ```js
+  let isStudent = true;
+  let isAdmin = false;
+  ```
 
-- Boolean Data Type
-- true and false
+---
 
-- Symbol Data Type
-- Used to create unique identifiers
-- Used to private keys in a object.
+## 4️⃣ Symbol Data Type
 
-- Creation of Symbol Data Type
-```javascript
-Symbol() === Symbol() // false
-let obj = {};
+- **Purpose:** Unique identifiers, private keys in objects.
+- **Creation & Usage:**
+  ```js
+  Symbol() === Symbol() // false
 
-obj.name = "Sambhav"; // this is public key
+  let obj = {};
+  obj.name = "Sambhav"; // public key
 
-console.log(obj.name); // Sambhav
+  let sym = Symbol("secret");
+  obj[sym] = "Hidden Value"; // private key
 
-let sym = Symbol("name");
-obj[sym] = "Sambhav"; // this is private key
+  console.log(obj.name);     // Sambhav
+  console.log(obj[sym]);     // Hidden Value
+  console.log(obj);          // { name: 'Sambhav', [Symbol(secret)]: 'Hidden Value' }
+  console.log(Object.keys(obj)); // [ 'name' ]
+  ```
 
-console.log(obj[sym]); // Sambhav
-console.log(obj); // { name: 'Sambhav', [Symbol(name)]: 'Sambhav' }
-console.log(Object.keys(obj)); // [ 'name' ]
+- **Why Symbol? Drawback of Object:**
+  ```js
+  const obj = {};
 
-```
+  function getData(param){
+      param.getAllAccess = function(){
+          console.log("You have been hacked");
+      };
+      return ["Neha", "Riya", "Vrushali","Pratiksha", "Pranita"];
+  }
 
-```javascript
-// Why we need symbol and what was the drawback of Object
+  getData(obj);
 
-const obj = {};
+  Object.keys(obj).forEach((key)=>{
+      console.log(key);
+      obj[key]();
+  });
+  // Symbol prevents accidental access to private keys!
+  ```
 
-function getData(param){
-    param.getAllAccess = function(){
-        console.log("You have been hacked");
-    };
-    return ["Neha", "Riya", "Vrushali","Pratiksha", "Pranita"];
-}
+---
 
-getData(obj);
+## 5️⃣ Object Data Type
 
-Object.keys(obj).forEach((key)=>{
-    console.log(key);
-    obj[key]();
-});
-```
+- **Purpose:** Store multiple values in a single variable.
+- **Creation:**
+  ```js
+  let obj = {
+      name: "Sambhav",
+      age: 20,
+      isStudent: true
+  };
 
-- Object Data Type
+  console.log(obj.name);      // Sambhav
+  console.log(obj["age"]);    // 20
 
-- Used to store multiple values in a single variable
-- Creation of Object Data Type
-```javascript
+  // Dynamic keys
+  let keyName = 'salary';
+  obj[keyName] = 50000;
+  console.log(obj.salary);    // 50000
+  ```
 
-let obj = {
-    name: "Sambhav",
-    age: 20,
-    isStudent: true
-};
+- **Objects Work on Reference Basis:**
+  ```js
+  let obj1 = { name: "Sambhav" };
+  let obj2 = obj1;
+  obj2.name = "Neha";
+  console.log(obj1.name); // Neha (both point to same object)
+  ```
 
-console.log(obj.name); // Sambhav
-console.log(obj["age"]); // 20
+- **Tricky Example:**
+  ```js
+  let obj = {
+      name : "Sambhav"
+  }
 
-// creating dynamic keys
+  function abc(obj){
+      let num = obj;
+      num = 200;
+      console.log(num); // 200
+  }
 
-let keyName = 'salary';
-obj[keyName] = 50000;
+  abc(obj);
+  console.log(obj); // { name: "Sambhav" }
+  // Changing 'num' doesn't affect original object, because 'num' is reassigned to a primitive.
+  ```
 
-console.log(obj.salary); // 50000
+- **Another Reference Example:**
+  ```js
+  let objA = { value: 10 };
+  let objB = objA;
+  objB.value = 20;
+  console.log(objA.value); // 20
+  ```
 
-```
+- **Copying Objects (Shallow Copy):**
+  ```js
+  let original = { name: "Sam", age: 21 };
+  let copy = { ...original };
+  copy.name = "Neha";
+  console.log(original.name); // Sam
+  console.log(copy.name);     // Neha
+  ```
 
-- Objects Works on Reference Basis.
+---
 
-// tricky example
+## 6️⃣ Array Data Type
 
-```javascript
+- **Arrays can hold multiple types:**
+  ```js
+  let arr = [1, "Sam", true, { age: 20 }, [2,3]];
+  console.log(arr[3].age); // 20
+  ```
 
-let obj = {
-    name : "Sambhav"
-}
+---
 
-function abc(obj){
-    let num = obj;
-    num = 200;
-    console.log(num); 
-}
-
-abc(obj);
-console.log(obj); 
-```
-
+> **Tip:**  
+> Practice with these examples, experiment with data types, and understand how references work in JavaScript
